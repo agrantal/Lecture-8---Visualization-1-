@@ -3,12 +3,24 @@ title: "Lecture 8 - Visualization 1"
 output: git_document
 ---
 
+# Re-install packages (bc I updated R version) and install ggrides and rnoaa packages
+
 ```{r}
 install.packages(c("tidyverse", "knitr", "janitor", "broom", "here", "shiny", "readxl", "haven", "ggridges", "viridis", "skimr", "rvest", "httr", "flexdashboard", "devtools", "rmarkdown", "modelr"))
+install.packages("rnoaa")
 
 library(tidyverse)
 library(ggridges)
 library(rnoaa)
+```
+
+# import sample data and organize
+
+```{r}
+pulse_data = haven::read_sas("./Lecture 8 - Visualization 1/sample data/public_pulse_data.sas7bdat") 
+janitor::clean_names()
+pulse_data
+```
 weather_df = 
   rnoaa::meteo_pull_monitors(c("USW00094728", "USC00519397", "USS0023B17S"),
                       var = c("PRCP", "TMIN", "TMAX"), 
@@ -21,6 +33,7 @@ weather_df =
     tmin = tmin / 10,
     tmax = tmax / 10) %>%
   select(name, id, everything())
+
 weather_df
 ```
 
